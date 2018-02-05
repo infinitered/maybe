@@ -1,6 +1,6 @@
 defmodule Maybe do
   @moduledoc """
-  Access nested maps and structs, protected from `nil`. 
+  Access nested maps and structs, protected from `nil`.
 
   See `maybe/1` or `maybe/2` for more details.
 
@@ -16,7 +16,7 @@ defmodule Maybe do
   """
 
   @doc """
-  Get a value out of a nested map or struct, or return nil. 
+  Get a value out of a nested map or struct, or return nil.
 
   Compiles down to `maybe/2`. In other words, this:
 
@@ -35,6 +35,10 @@ defmodule Maybe do
       iex> map = %{city: nil}
       ...> maybe(map.city.name)
       nil
+
+      iex> map = %{city: :unknown}
+      ...> maybe(map.city.name)
+      nil
   """
   defmacro maybe(ast) do
     [variable | keys] = extract_keys(ast)
@@ -45,7 +49,7 @@ defmodule Maybe do
   end
 
   @doc """
-  Get a value out of a nested map or struct, or return nil. 
+  Get a value out of a nested map or struct, or return nil.
 
   For prettier syntax, see the `maybe/1` macro.
 
@@ -63,9 +67,11 @@ defmodule Maybe do
   def maybe(nil, _keys), do: nil
   def maybe(val, []), do: val
 
-  def maybe(map, [h | t]) do
+  def maybe(map, [h | t]) when is_map(map) do
     maybe(Map.get(map, h), t)
   end
+
+  def maybe(_, _), do: nil
 
   defp extract_keys(ast, keys \\ [])
   defp extract_keys([], keys), do: keys
