@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Generate and open docs in your browser
+mix docs || { echo 'Docs were not generated!'; exit 1; }
+open doc/index.html || { echo 'Docs did not open'; exit 1; }
