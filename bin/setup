@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mix deps.get || { echo "Dependencies did not download!"; exit 1; }
+echo "Running tests to confirm everything is fine..."
+bin/test || { echo "Tests failed"; exit 1; }

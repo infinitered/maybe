@@ -2,7 +2,7 @@
 #
 # Test Script
 #
-# Tests Authority the same way that it will be tested on CI. This is convenient
+# Runs tests the same way that it will be tested on CI. This is convenient
 # for testing your changes before you push them up for CI.
 
 MIX_ENV=test mix format --check-formatted || { echo "Code was not formatted! Please format using `mix format`."; exit 1; }
