@@ -67,7 +67,7 @@ defmodule Maybe do
   def maybe(nil, _keys), do: nil
   def maybe(val, []), do: val
 
-  def maybe(map, [h | t]) do
+  def maybe(map, [h | t]) when is_map(map) do
     maybe(Map.get(map, h), t)
   end
 
